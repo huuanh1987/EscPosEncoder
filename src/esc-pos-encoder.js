@@ -528,6 +528,29 @@ class EscPosEncoder {
 
         return this;
     }
+    
+    /**
+     * autocut paper
+     * Print China
+     * @param  {string}          value   full or partial. When not specified a full cut will be assumed
+     * @return {object}                  Return the object, for easy chaining commands
+     *
+     */
+    autocut(value) {
+       //0x1b, 0x69 --> full
+       //0x1b, 0x6d --> partial
+       let data = 0x00;
+
+       if (value == 'partial') {
+           data = 0x1b, 0x6d ;
+       }
+
+       this._queue([
+           0x1b, 0x69, data,
+       ]);
+
+       return this;
+   }
 
     /**
      * Add raw printer commands
